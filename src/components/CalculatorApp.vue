@@ -27,26 +27,49 @@ interface Button {
   class: string;
 }
 
-
 const buttons: Button[] = [
-  { symbol: "C", onPressed: clear, class: "bg-yellow-600 text-slate-900 col-span-2" },
-  { symbol: "=", onPressed: setOpperator,  class: "bg-slate-400 text-slate-900 col-span-2" },
+  {
+    symbol: "C",
+    onPressed: clear,
+    class: "bg-yellow-600 text-slate-900 col-span-2",
+  },
+  {
+    symbol: "=",
+    onPressed: setOpperator,
+    class: "bg-slate-400 text-slate-900 col-span-2",
+  },
   { symbol: "7", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "8", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "9", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
-  { symbol: "÷", onPressed: setOpperator, class: "bg-orange-600 text-slate-900" },
+  {
+    symbol: "÷",
+    onPressed: setOpperator,
+    class: "bg-orange-600 text-slate-900",
+  },
   { symbol: "4", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "5", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "6", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
-  { symbol: "×", onPressed: setOpperator, class: "bg-orange-600 text-slate-900" },
+  {
+    symbol: "×",
+    onPressed: setOpperator,
+    class: "bg-orange-600 text-slate-900",
+  },
   { symbol: "1", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "2", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "3", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
-  { symbol: "-", onPressed: setOpperator, class: "bg-orange-600 text-slate-900" },
+  {
+    symbol: "-",
+    onPressed: setOpperator,
+    class: "bg-orange-600 text-slate-900",
+  },
   { symbol: "±", onPressed: negate, class: "bg-slate-700 text-zinc-200" },
   { symbol: "0", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: ".", onPressed: setDecimal, class: "bg-slate-700 text-zinc-200" },
-  { symbol: "+", onPressed: setOpperator, class: "bg-orange-600 text-slate-900" },
+  {
+    symbol: "+",
+    onPressed: setOpperator,
+    class: "bg-orange-600 text-slate-900",
+  },
 ];
 
 function clear(): void {
