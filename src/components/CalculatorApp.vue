@@ -44,7 +44,7 @@ const buttons: Button[] = [
   {
     symbol: "÷",
     onPressed: setOpperator,
-    class: "bg-orange-600 text-slate-900",
+    class: "bg-orange-600 text-zinc-200",
   },
   { symbol: "4", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "5", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
@@ -52,7 +52,7 @@ const buttons: Button[] = [
   {
     symbol: "×",
     onPressed: setOpperator,
-    class: "bg-orange-600 text-slate-900",
+    class: "bg-orange-600 text-zinc-200",
   },
   { symbol: "1", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   { symbol: "2", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
@@ -60,7 +60,7 @@ const buttons: Button[] = [
   {
     symbol: "-",
     onPressed: setOpperator,
-    class: "bg-orange-600 text-slate-900",
+    class: "bg-orange-600 text-zinc-200",
   },
   { symbol: "±", onPressed: negate, class: "bg-slate-700 text-zinc-200" },
   { symbol: "0", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
@@ -68,7 +68,7 @@ const buttons: Button[] = [
   {
     symbol: "+",
     onPressed: setOpperator,
-    class: "bg-orange-600 text-slate-900",
+    class: "bg-orange-600 text-zinc-200",
   },
 ];
 
@@ -109,7 +109,7 @@ function setOpperator(key: string): void {
 
 function setDecimal(): void {
   if (state.waitingForNext) {
-    state.display = "9.";
+    state.display = "0.";
     state.waitingForNext = false;
     return;
   }
@@ -148,7 +148,7 @@ function calculate(
 </script>
 
 <template>
-  <div class="w-fit bg-slate-900 p-2">
+  <div class="rounded w-fit bg-slate-900 p-3">
     <div>
       <CalculatorDisplay :value="state.display"></CalculatorDisplay>
     </div>
@@ -157,7 +157,7 @@ function calculate(
         v-for="(button, index) in buttons"
         :key="index"
         :value="button.symbol"
-        :class="'rounded ' + button.class"
+        :class="button.class"
         @pressed="button.onPressed"
       ></CalculatorButton>
     </div>

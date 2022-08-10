@@ -12,6 +12,11 @@ const display = computed(() => {
 
 <template>
   <div class="w-fit pb-2">
-    <input type="text" disabled :value="display" class="w-full text-right" />
+    <input
+      type="text"
+      disabled
+      :value="display"
+      class="w-full text-right text-black px-1"
+    />
   </div>
 </template>
