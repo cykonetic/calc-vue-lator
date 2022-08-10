@@ -86,7 +86,7 @@ function negate(): void {
 function setOpperator(key: string): void {
   const input = parseFloat(state.display);
 
-  if (state.waitingForNext) {
+  if (state.waitingForNext && key !== "=") {
     state.opperator = key;
     return;
   }
@@ -101,9 +101,9 @@ function setOpperator(key: string): void {
 
   if (key === "=") {
     state.register = input;
-    return;
+  } else {
+    state.opperator = key;
   }
-  state.opperator = key;
   state.waitingForNext = true;
 }
 
