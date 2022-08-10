@@ -10,22 +10,22 @@ interface Calculator {
   waitingForNext: boolean;
 }
 
+interface HandleInput {
+  (key: string): void;
+}
+
+interface Button {
+  symbol: string;
+  onPressed: HandleInput;
+  class: string;
+}
+
 const state: Calculator = reactive({
   register: null,
   opperator: null,
   display: "0",
   waitingForNext: false,
 });
-
-interface Input {
-  (key: string): void;
-}
-
-interface Button {
-  symbol: string;
-  onPressed: Input;
-  class: string;
-}
 
 const buttons: Button[] = [
   {
