@@ -80,7 +80,11 @@ function clear(): void {
 }
 
 function negate(): void {
-  state.display = (parseFloat(state.display) * -1.0).toString();
+  const negated = parseFloat(state.display) * -1.0;
+  state.display = negated.toString();
+  if (state.waitingForNext) {
+    state.register = negated;
+  }
 }
 
 function setOpperator(key: string): void {
@@ -94,12 +98,12 @@ function setOpperator(key: string): void {
   if (state.register === null && !isNaN(input)) {
     state.register = input;
   } else if (state.register !== null && state.opperator !== null) {
-    state.register = calculate(state.opperator, state.register, input);
+    const result = calculate(state.opperator, state.register, input);
     // Limit display precision
-    state.display = parseFloat(state.register.toFixed(7)).toString();
+    state.display = parseFloat(result.toFixed(7)).toString();
   }
 
-  if (key === "=") {
+  if (key === "=" && !state.waitingForNext) {
     state.register = input;
   } else {
     state.opperator = key;
