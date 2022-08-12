@@ -103,10 +103,10 @@ function setOpperator(key: string): void {
     state.display = parseFloat(result.toFixed(7)).toString();
   }
 
-  if (key === "=" && !state.waitingForNext) {
-    state.register = input;
-  } else {
+  if (key !== "=") {
     state.opperator = key;
+  } else if (!state.waitingForNext) {
+    state.register = input;
   }
   state.waitingForNext = true;
 }
