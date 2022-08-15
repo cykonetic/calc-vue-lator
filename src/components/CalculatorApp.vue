@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import CalculatorButton from "./CalculatorButton.vue";
 import CalculatorDisplay from "./CalculatorDisplay.vue";
 
 interface Calculator {
-  register: number | null;
-  opperator: string | null;
+  register: number;
+  operator: string;
   display: string;
-  waitingForNext: boolean;
+  waiting: boolean;
+  executed: boolean;
 }
 
 interface HandleInput {
@@ -21,10 +22,11 @@ interface Button {
 }
 
 const state: Calculator = reactive({
-  register: null,
-  opperator: null,
+  register: 0,
+  operator: "+",
   display: "0",
-  waitingForNext: false,
+  waiting: true,
+  executed: true,
 });
 
 const buttons: Button[] = [
@@ -35,7 +37,7 @@ const buttons: Button[] = [
   },
   {
     symbol: "=",
-    onPressed: setOpperator,
+    onPressed: equals,
     class: "bg-slate-400 text-slate-900 col-span-2",
   },
   { symbol: "7", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
@@ -43,7 +45,7 @@ const buttons: Button[] = [
   { symbol: "9", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   {
     symbol: "÷",
-    onPressed: setOpperator,
+    onPressed: setOperator,
     class: "bg-orange-600 text-zinc-200",
   },
   { symbol: "4", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
@@ -51,7 +53,7 @@ const buttons: Button[] = [
   { symbol: "6", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   {
     symbol: "×",
-    onPressed: setOpperator,
+    onPressed: setOperator,
     class: "bg-orange-600 text-zinc-200",
   },
   { symbol: "1", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
@@ -59,7 +61,7 @@ const buttons: Button[] = [
   { symbol: "3", onPressed: setDigit, class: "bg-slate-700 text-zinc-200" },
   {
     symbol: "-",
-    onPressed: setOpperator,
+    onPressed: setOperator,
     class: "bg-orange-600 text-zinc-200",
   },
   { symbol: "±", onPressed: negate, class: "bg-slate-700 text-zinc-200" },
@@ -67,54 +69,52 @@ const buttons: Button[] = [
   { symbol: ".", onPressed: setDecimal, class: "bg-slate-700 text-zinc-200" },
   {
     symbol: "+",
-    onPressed: setOpperator,
+    onPressed: setOperator,
     class: "bg-orange-600 text-zinc-200",
   },
 ];
 
+function calculate(
+  operator: string,
+  leftOpperand: number,
+  rightOpperand: number
+): number {
+  let result;
+  switch (operator) {
+    case "×":
+      result = leftOpperand * rightOpperand;
+      break;
+    case "÷":
+      result = leftOpperand / rightOpperand;
+      break;
+    case "-":
+      result = leftOpperand - rightOpperand;
+      break;
+    default: // case "+":
+      result = leftOpperand + rightOpperand;
+  }
+
+  return parseFloat(result.toFixed(7));
+}
+
 function clear(): void {
-  state.register = null;
+  state.register = 0;
+  state.operator = "+";
   state.display = "0";
-  state.waitingForNext = false;
-  state.opperator = null;
+  state.waiting = true;
+  state.executed = true;
 }
 
 function negate(): void {
-  const negated = parseFloat(state.display) * -1.0;
-  state.display = negated.toString();
-  if (state.waitingForNext) {
-    state.register = negated;
-  }
-}
-
-function setOpperator(key: string): void {
   const input = parseFloat(state.display);
-
-  if (state.waitingForNext && key !== "=") {
-    state.opperator = key;
-    return;
-  }
-
-  if (state.register === null && !isNaN(input)) {
-    state.register = input;
-  } else if (state.register !== null && state.opperator !== null) {
-    const result = calculate(state.opperator, state.register, input);
-    // Limit display precision
-    state.display = parseFloat(result.toFixed(7)).toString();
-  }
-
-  if (key !== "=") {
-    state.opperator = key;
-  } else if (!state.waitingForNext) {
-    state.register = input;
-  }
-  state.waitingForNext = true;
+  const result = calculate("×", -1.0, input);
+  state.display = parseFloat(result.toFixed(7)).toString();
 }
 
 function setDecimal(): void {
-  if (state.waitingForNext) {
+  if (state.waiting) {
     state.display = "0.";
-    state.waitingForNext = false;
+    state.waiting = false;
     return;
   }
   if (!/\./.test(state.display)) {
@@ -123,31 +123,39 @@ function setDecimal(): void {
 }
 
 function setDigit(key: string): void {
-  if (state.waitingForNext) {
+  if (state.waiting) {
     state.display = key;
-    state.waitingForNext = false;
-  } else {
-    state.display = state.display === "0" ? key : state.display + key;
+    state.waiting = false;
+    return;
   }
+  state.display = "0" === state.display ? key : state.display + key;
 }
 
-function calculate(
-  opperator: string,
-  leftOpperand: number,
-  rightOpperand: number
-): number {
-  switch (opperator) {
-    case "×":
-      return leftOpperand * rightOpperand;
-    case "÷":
-      return leftOpperand / rightOpperand;
-    case "-":
-      return leftOpperand - rightOpperand;
-    case "+":
-      return leftOpperand + rightOpperand;
-    default:
-      return rightOpperand;
+function equals(): void {
+  let input = parseFloat(state.display);
+
+  if (!state.executed) {
+    const swap = state.register;
+    state.register = input;
+    input = state.waiting ? 0 : swap;
   }
+
+  const result = calculate(state.operator, state.register, input);
+  state.display = result.toString();
+  state.executed = state.waiting = true;
+}
+
+function setOperator(key: string): void {
+  if (!state.waiting && !state.executed) {
+    const input = parseFloat(state.display);
+    const result = calculate(state.operator, state.register, input);
+    state.display = result.toString();
+  }
+
+  state.register = parseFloat(state.display);
+  state.operator = key;
+  state.executed = false;
+  state.waiting = true;
 }
 </script>
 
