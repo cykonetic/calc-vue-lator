@@ -5,25 +5,36 @@ import CalculatorDisplay from "./CalculatorDisplay.vue";
 
 const buttonClassClear = "bg-yellow-600 text-slate-900 col-span-2";
 const buttonClassDigit = "bg-slate-700 text-zinc-200";
-const buttonClassOperator = "bg-orange-600 text-zinc-200";
+const buttonClassOper = "bg-orange-600 text-zinc-200";
 const buttonClassEquals = "bg-slate-400 text-slate-900 col-span-2";
+
+const digitOne = "1";
+const digitTwo = "2";
+const digitThree = "3";
+const digitFour = "4";
+const digitFive = "5";
+const digitSix = "6";
+const digitSeven = "7";
+const digitEight = "8";
+const digitNine = "9";
+const digitZero = "0";
 
 const displayDecimal = ".";
 const displayError = "Error";
-const displayDefault = "0";
+const displayDefault = digitZero;
 
-const operatorAdd = "+";
-const operatorClear = "C";
-const operatorDivide = "÷";
-const operatorEqual = "=";
-const operatorMultiply = "×";
-const operatorNegate = "±";
-const operatorSubtract = "-";
-const operatorDefault = operatorAdd;
+const operAdd = "+";
+const operClear = "C";
+const operDivide = "÷";
+const operEqual = "=";
+const operMultiply = "×";
+const operNegate = "±";
+const operSubtract = "-";
+const operDefault = operAdd;
 
 interface Calculator {
   register: number; // value of left-side (stored)
-  operator: string | null; // operation
+  operator: string|null; // operation
   display: string; // value of right-side
   waiting: boolean; // user input expected (defaults will complete operations)
   executed: boolean; // last operation complete
@@ -50,40 +61,28 @@ const state: Calculator = reactive({
 });
 
 const buttons: Button[] = [
-  { symbol: operatorClear, onPressed: clear, class: buttonClassClear },
-  { symbol: operatorEqual, onPressed: equals, class: buttonClassEquals },
+  { symbol: operClear, onPressed: clear, class: buttonClassClear },
+  { symbol: operEqual, onPressed: equals, class: buttonClassEquals },
 
-  { symbol: "7", onPressed: setDigit, class: buttonClassDigit },
-  { symbol: "8", onPressed: setDigit, class: buttonClassDigit },
-  { symbol: "9", onPressed: setDigit, class: buttonClassDigit },
-  {
-    symbol: operatorDivide,
-    onPressed: setOperator,
-    class: buttonClassOperator,
-  },
+  { symbol: digitSeven, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: digitEight, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: digitNine, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: operDivide, onPressed: setOperator, class: buttonClassOper },
 
-  { symbol: "4", onPressed: setDigit, class: buttonClassDigit },
-  { symbol: "5", onPressed: setDigit, class: buttonClassDigit },
-  { symbol: "6", onPressed: setDigit, class: buttonClassDigit },
-  {
-    symbol: operatorMultiply,
-    onPressed: setOperator,
-    class: buttonClassOperator,
-  },
+  { symbol: digitFour, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: digitFive, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: digitSix, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: operMultiply, onPressed: setOperator, class: buttonClassOper },
 
-  { symbol: "1", onPressed: setDigit, class: buttonClassDigit },
-  { symbol: "2", onPressed: setDigit, class: buttonClassDigit },
-  { symbol: "3", onPressed: setDigit, class: buttonClassDigit },
-  {
-    symbol: operatorSubtract,
-    onPressed: setOperator,
-    class: buttonClassOperator,
-  },
+  { symbol: digitOne, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: digitTwo, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: digitThree, onPressed: setDigit, class: buttonClassDigit },
+  { symbol: operSubtract, onPressed: setOperator, class: buttonClassOper },
 
-  { symbol: operatorNegate, onPressed: negate, class: buttonClassDigit },
-  { symbol: "0", onPressed: setDigit, class: buttonClassDigit },
+  { symbol: operNegate, onPressed: negate, class: buttonClassDigit },
+  { symbol: digitZero, onPressed: setDigit, class: buttonClassDigit },
   { symbol: displayDecimal, onPressed: setDecimal, class: buttonClassDigit },
-  { symbol: operatorAdd, onPressed: setOperator, class: buttonClassOperator },
+  { symbol: operAdd, onPressed: setOperator, class: buttonClassOper },
 ];
 
 function clear(): void {
@@ -130,7 +129,7 @@ function calculate(
 function negate(): void {
   !state.error || clearError();
   const input = parseFloat(state.display);
-  state.display = calculate(operatorMultiply, -1.0, input);
+  state.display = calculate(operMultiply, -1.0, input);
 }
 
 function equals(): void {
@@ -142,7 +141,7 @@ function equals(): void {
     input = state.waiting ? 0 : swap;
   }
   state.display = calculate(
-    state.operator ?? operatorDefault,
+    state.operator ?? operDefault,
     input,
     state.register
   );
@@ -177,7 +176,7 @@ function setOperator(key: string): void {
   !state.error || clearError();
   if (!(state.executed || state.waiting)) {
     state.display = calculate(
-      state.operator ?? operatorDefault,
+      state.operator ?? operDefault,
       state.register,
       parseFloat(state.display)
     );
@@ -192,16 +191,11 @@ function setOperator(key: string): void {
 <template>
   <div class="rounded w-fit bg-slate-900 p-3">
     <div>
-      <CalculatorDisplay :value="state.display"></CalculatorDisplay>
+      <CalculatorDisplay :value="state.display + (/\./.test(state.display) ? '' : '.')"></CalculatorDisplay>
     </div>
     <div class="grid grid-cols-4 gap-1 font-bold">
-      <CalculatorButton
-        v-for="(button, index) in buttons"
-        :key="index"
-        :value="button.symbol"
-        :class="button.class"
-        @pressed="button.onPressed"
-      ></CalculatorButton>
+      <CalculatorButton v-for="(button, index) in buttons" :key="index" :value="button.symbol" :class="button.class"
+        @pressed="button.onPressed"></CalculatorButton>
     </div>
   </div>
 </template>

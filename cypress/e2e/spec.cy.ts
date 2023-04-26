@@ -11,8 +11,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
   });
 
   it('Clicked "3"', () => {
-    cy.contains("3");
-    cy.click();
+    cy.contains("3").click();
     cy.get('input[type="text"]');
     cy.contains("3");
   });

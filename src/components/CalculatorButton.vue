@@ -7,7 +7,7 @@ defineEmits(["pressed"]);
 </script>
 
 <template>
-  <button class="rounded" @click="$emit('pressed', value)">
+  <button class="rounded-md" @click="$emit('pressed', value)">
     {{ value }}
   </button>
 </template>
