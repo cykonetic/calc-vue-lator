@@ -5,15 +5,15 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.visit("/");
   });
 
-  it('Loaded Page', () => {
-    cy.get('input[type="text"]')
-      .contains('0');
+  it("Loaded Page", () => {
+    cy.get('input[type="text"]');
+    cy.contains("0");
   });
 
   it('Clicked "3"', () => {
-    cy.contains('3')
-      .click()
-      .get('input[type="text"]')
-      .contains('3');
+    cy.contains("3");
+    cy.click();
+    cy.get('input[type="text"]');
+    cy.contains("3");
   });
 });
