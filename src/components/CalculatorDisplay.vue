@@ -11,6 +11,7 @@ const props = defineProps({
       disabled
       :value="props.value"
       class="w-full text-right text-black px-1"
+      style="border: 2px inset indigo"
     />
   </div>
 </template>

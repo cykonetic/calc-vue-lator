@@ -4,7 +4,7 @@ import CalculatorButton from "./CalculatorButton.vue";
 import CalculatorDisplay from "./CalculatorDisplay.vue";
 
 const buttonClassClear = "bg-yellow-600 text-slate-900 col-span-2";
-const buttonClassDigit = "bg-slate-700 text-zinc-200";
+const buttonClassDigit = "bg-slate-500 text-zinc-200";
 const buttonClassOper = "bg-orange-600 text-zinc-200";
 const buttonClassEquals = "bg-slate-400 text-slate-900 col-span-2";
 
@@ -189,11 +189,11 @@ function setOperator(key: string): void {
 </script>
 
 <template>
-  <div class="rounded w-fit bg-slate-900 p-3">
+  <div class="rounded-md w-fit bg-blue-900 p-3">
     <div>
       <CalculatorDisplay :value="state.display + (/\./.test(state.display) ? '' : '.')"></CalculatorDisplay>
     </div>
-    <div class="grid grid-cols-4 gap-1 font-bold">
+    <div class="grid grid-cols-4 gap-2 font-bold">
       <CalculatorButton v-for="(button, index) in buttons" :key="index" :value="button.symbol" :class="button.class"
         @pressed="button.onPressed"></CalculatorButton>
     </div>
