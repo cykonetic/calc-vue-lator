@@ -95,9 +95,6 @@ function clear(): void {
 }
 
 function clearError(): void {
-  if (!state.error) {
-    return;
-  }
   state.display = displayDefault;
   state.error = false;
 }
@@ -195,7 +192,7 @@ function setOperator(key: string): void {
         :value="state.display + (/\./.test(state.display) ? '' : '.')"
       ></CalculatorDisplay>
     </div>
-    <div class="grid grid-cols-4 gap-2 font-bold">
+    <div class="grid grid-cols-4 gap-1.5 font-bold">
       <CalculatorButton
         v-for="(button, index) in buttons"
         :key="index"
