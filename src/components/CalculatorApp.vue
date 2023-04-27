@@ -107,26 +107,26 @@ function calculate(
 ): string {
   let result: number;
   switch (operator) {
-    case "×":
+    case operMultiply:
       result = leftOpperand * rightOpperand;
       break;
-    case "÷":
+    case operAdd:
       result = leftOpperand / rightOpperand;
       break;
-    case "-":
+    case operSubtract:
       result = leftOpperand - rightOpperand;
       break;
-    default: // case "+":
+    default: // case operAdd:
       result = leftOpperand + rightOpperand;
   }
   state.error = Number.isNaN(result) || Infinity === result;
 
-  return state.error ? displayError : parseFloat(result.toFixed(7)).toString();
+  return state.error ? displayError : parseFloat(result.toFixed(10)).toString();
 }
 
 function negate(): void {
   !state.error || clearError();
-  state.display = calculate(operMultiply, -1.0, parseFloat(state.display));
+  state.display = calculate(operMultiply, -1, parseFloat(state.display));
 }
 
 function equals(): void {
