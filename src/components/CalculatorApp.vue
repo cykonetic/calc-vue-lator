@@ -34,7 +34,7 @@ const operDefault = operAdd;
 
 interface Calculator {
   register: number; // value of left-side (stored)
-  operator: string|null; // operation
+  operator: string | null; // operation
   display: string; // value of right-side
   waiting: boolean; // user input expected (defaults will complete operations)
   executed: boolean; // last operation complete
@@ -191,11 +191,18 @@ function setOperator(key: string): void {
 <template>
   <div class="rounded-md w-fit bg-blue-900 p-3">
     <div>
-      <CalculatorDisplay :value="state.display + (/\./.test(state.display) ? '' : '.')"></CalculatorDisplay>
+      <CalculatorDisplay
+        :value="state.display + (/\./.test(state.display) ? '' : '.')"
+      ></CalculatorDisplay>
     </div>
     <div class="grid grid-cols-4 gap-2 font-bold">
-      <CalculatorButton v-for="(button, index) in buttons" :key="index" :value="button.symbol" :class="button.class"
-        @pressed="button.onPressed"></CalculatorButton>
+      <CalculatorButton
+        v-for="(button, index) in buttons"
+        :key="index"
+        :value="button.symbol"
+        :class="button.class"
+        @pressed="button.onPressed"
+      ></CalculatorButton>
     </div>
   </div>
 </template>
