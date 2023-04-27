@@ -64,25 +64,25 @@ const buttons: Button[] = [
   { symbol: operClear, onPressed: clear, class: buttonClassClear },
   { symbol: operEqual, onPressed: equals, class: buttonClassEquals },
 
-  { symbol: digitSeven, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: digitEight, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: digitNine, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: operDivide, onPressed: setOperator, class: buttonClassOper },
+  { symbol: digitSeven, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: digitEight, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: digitNine, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: operDivide, onPressed: enterOper, class: buttonClassOper },
 
-  { symbol: digitFour, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: digitFive, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: digitSix, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: operMultiply, onPressed: setOperator, class: buttonClassOper },
+  { symbol: digitFour, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: digitFive, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: digitSix, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: operMultiply, onPressed: enterOper, class: buttonClassOper },
 
-  { symbol: digitOne, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: digitTwo, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: digitThree, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: operSubtract, onPressed: setOperator, class: buttonClassOper },
+  { symbol: digitOne, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: digitTwo, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: digitThree, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: operSubtract, onPressed: enterOper, class: buttonClassOper },
 
   { symbol: operNegate, onPressed: negate, class: buttonClassDigit },
-  { symbol: digitZero, onPressed: setDigit, class: buttonClassDigit },
-  { symbol: displayDecimal, onPressed: setDecimal, class: buttonClassDigit },
-  { symbol: operAdd, onPressed: setOperator, class: buttonClassOper },
+  { symbol: digitZero, onPressed: enterDigit, class: buttonClassDigit },
+  { symbol: displayDecimal, onPressed: enterDecimal, class: buttonClassDigit },
+  { symbol: operAdd, onPressed: enterOper, class: buttonClassOper },
 ];
 
 function clear(): void {
@@ -95,6 +95,7 @@ function clear(): void {
 }
 
 function clearError(): void {
+  if (!state.error) return;
   state.display = displayDefault;
   state.error = false;
 }
@@ -125,8 +126,7 @@ function calculate(
 
 function negate(): void {
   !state.error || clearError();
-  const input = parseFloat(state.display);
-  state.display = calculate(operMultiply, -1.0, input);
+  state.display = calculate(operMultiply, -1.0, parseFloat(state.display));
 }
 
 function equals(): void {
@@ -145,10 +145,8 @@ function equals(): void {
   state.executed = state.waiting = true;
 }
 
-function setDecimal(): void {
-  if (/\./.test(state.display)) {
-    return;
-  }
+function enterDecimal(): void {
+  if (/\./.test(state.display)) return;
   if (!state.waiting) {
     state.display += displayDecimal;
     return;
@@ -158,7 +156,7 @@ function setDecimal(): void {
   state.waiting = false;
 }
 
-function setDigit(key: string): void {
+function enterDigit(key: string): void {
   if (!state.waiting) {
     state.display =
       displayDefault === state.display ? key : state.display + key;
@@ -169,7 +167,7 @@ function setDigit(key: string): void {
   state.waiting = false;
 }
 
-function setOperator(key: string): void {
+function enterOper(key: string): void {
   !state.error || clearError();
   if (!(state.executed || state.waiting)) {
     state.display = calculate(
