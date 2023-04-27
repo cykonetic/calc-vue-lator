@@ -2,14 +2,12 @@
 defineProps({
   value: { type: String, required: true },
 });
+
+defineEmits(["pressed"]);
 </script>
 
 <template>
-  <button
-    class="rounded"
-    :class="$attrs.class"
-    @click="$emit('pressed', value)"
-  >
+  <button class="rounded-sm" @click="$emit('pressed', value)">
     {{ value }}
   </button>
 </template>

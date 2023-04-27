@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
-
 const props = defineProps({
   value: { type: String, required: true },
-});
-
-const display = computed(() => {
-  return props.value + (/\./.test(props.value) ? "" : ".");
 });
 </script>
 
@@ -15,8 +9,9 @@ const display = computed(() => {
     <input
       type="text"
       disabled
-      :value="display"
+      :value="props.value"
       class="w-full text-right text-black px-1"
+      style="border: 2px inset indigo"
     />
   </div>
 </template>
