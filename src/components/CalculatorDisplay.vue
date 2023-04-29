@@ -8,6 +8,7 @@ const props = defineProps({
   <div class="w-fit pb-2">
     <input
       type="text"
+      id="calc-display"
       disabled
       :value="props.value"
       class="w-full text-right text-black px-1"

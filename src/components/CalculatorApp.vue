@@ -18,10 +18,7 @@ const digitSeven = "7";
 const digitEight = "8";
 const digitNine = "9";
 const digitZero = "0";
-
-const displayDecimal = ".";
-const displayError = "Error";
-const displayDefault = digitZero;
+const digitDecimal = ".";
 
 const operAdd = "+";
 const operClear = "C";
@@ -31,6 +28,9 @@ const operMultiply = "×";
 const operNegate = "±";
 const operSubtract = "-";
 const operDefault = operAdd;
+
+const displayError = "Error";
+const displayDefault = digitZero;
 
 interface Calculator {
   register: number; // value of left-side (stored)
@@ -46,6 +46,7 @@ interface HandleInput {
 }
 
 interface Button {
+  id: string;
   symbol: string;
   onPressed: HandleInput;
   class: string;
@@ -61,29 +62,135 @@ const state: Calculator = reactive({
 });
 
 const buttons: Button[] = [
-  { symbol: operClear, onPressed: clear, class: buttonClassClear },
-  { symbol: operEqual, onPressed: equals, class: buttonClassEquals },
+  {
+    symbol: operClear,
+    id: getId(operClear),
+    onPressed: clear,
+    class: buttonClassClear,
+  },
+  {
+    symbol: operEqual,
+    id: getId(operEqual),
+    onPressed: equals,
+    class: buttonClassEquals,
+  },
 
-  { symbol: digitSeven, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: digitEight, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: digitNine, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: operDivide, onPressed: enterOper, class: buttonClassOper },
+  {
+    symbol: digitSeven,
+    id: getId(digitSeven),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitEight,
+    id: getId(digitEight),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitNine,
+    id: getId(digitNine),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: operDivide,
+    id: getId(operDivide),
+    onPressed: enterOper,
+    class: buttonClassOper,
+  },
 
-  { symbol: digitFour, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: digitFive, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: digitSix, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: operMultiply, onPressed: enterOper, class: buttonClassOper },
+  {
+    symbol: digitFour,
+    id: getId(digitFour),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitFive,
+    id: getId(digitFive),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitSix,
+    id: getId(digitSix),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: operMultiply,
+    id: getId(operMultiply),
+    onPressed: enterOper,
+    class: buttonClassOper,
+  },
 
-  { symbol: digitOne, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: digitTwo, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: digitThree, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: operSubtract, onPressed: enterOper, class: buttonClassOper },
+  {
+    symbol: digitOne,
+    id: getId(digitOne),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitTwo,
+    id: getId(digitTwo),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitThree,
+    id: getId(digitThree),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: operSubtract,
+    id: getId(operSubtract),
+    onPressed: enterOper,
+    class: buttonClassOper,
+  },
 
-  { symbol: operNegate, onPressed: negate, class: buttonClassDigit },
-  { symbol: digitZero, onPressed: enterDigit, class: buttonClassDigit },
-  { symbol: displayDecimal, onPressed: enterDecimal, class: buttonClassDigit },
-  { symbol: operAdd, onPressed: enterOper, class: buttonClassOper },
+  {
+    symbol: operNegate,
+    id: getId(operNegate),
+    onPressed: negate,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitZero,
+    id: getId(digitZero),
+    onPressed: enterDigit,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: digitDecimal,
+    id: getId(digitDecimal),
+    onPressed: enterDecimal,
+    class: buttonClassDigit,
+  },
+  {
+    symbol: operAdd,
+    id: getId(operAdd),
+    onPressed: enterOper,
+    class: buttonClassOper,
+  },
 ];
+
+function getId(symbol: string): string {
+  return "calc-btn-" + getFriendly(symbol);
+}
+
+function getFriendly(symbol: string): string {
+  if (operAdd === symbol) return "add";
+  if (operClear === symbol) return "clear";
+  if (operDivide === symbol) return "divide";
+  if (operEqual === symbol) return "equal";
+  if (operMultiply === symbol) return "multiply";
+  if (operNegate === symbol) return "negate";
+  if (operSubtract === symbol) return "subtract";
+  if (digitDecimal === symbol) return "decimal";
+  return symbol;
+}
 
 function clear(): void {
   state.register = 0;
@@ -110,7 +217,7 @@ function calculate(
     case operMultiply:
       result = leftOpperand * rightOpperand;
       break;
-    case operAdd:
+    case operDivide:
       result = leftOpperand / rightOpperand;
       break;
     case operSubtract:
@@ -148,11 +255,11 @@ function equals(): void {
 function enterDecimal(): void {
   if (/\./.test(state.display)) return;
   if (!state.waiting) {
-    state.display += displayDecimal;
+    state.display += digitDecimal;
     return;
   }
   !state.error || clearError();
-  state.display = displayDefault + displayDecimal;
+  state.display = displayDefault + digitDecimal;
   state.waiting = false;
 }
 
@@ -192,8 +299,9 @@ function enterOper(key: string): void {
     </div>
     <div class="grid grid-cols-4 gap-1.5 font-bold">
       <CalculatorButton
-        v-for="(button, index) in buttons"
-        :key="index"
+        v-for="button in buttons"
+        :key="button.id"
+        :id="button.id"
         :value="button.symbol"
         :class="button.class"
         @pressed="button.onPressed"
