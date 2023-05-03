@@ -81,4 +81,27 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-btn-equal").click();
     cy.get("#calc-display").should("have.value", "16.");
   });
+
+  it("Calculate 4*5-25*(-1)", () => {
+    cy.get("#calc-btn-4").click();
+    cy.get("#calc-display").should("have.value", "4.");
+    cy.get("#calc-btn-multiply").click();
+    cy.get("#calc-display").should("have.value", "4.");
+    cy.get("#calc-btn-5").click();
+    cy.get("#calc-display").should("have.value", "5.");
+    cy.get("#calc-btn-subtract").click();
+    cy.get("#calc-display").should("have.value", "20.");
+    cy.get("#calc-btn-2").click();
+    cy.get("#calc-display").should("have.value", "2.");
+    cy.get("#calc-btn-5").click();
+    cy.get("#calc-display").should("have.value", "25.");
+    cy.get("#calc-btn-multiply").click();
+    cy.get("#calc-display").should("have.value", "-5.");
+    cy.get("#calc-btn-1").click();
+    cy.get("#calc-display").should("have.value", "1.");
+    cy.get("#calc-btn-negate").click();
+    cy.get("#calc-display").should("have.value", "-1.");
+    cy.get("#calc-btn-equal").click();
+    cy.get("#calc-display").should("have.value", "5.");
+  });
 });
