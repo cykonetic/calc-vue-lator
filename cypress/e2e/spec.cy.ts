@@ -10,9 +10,31 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "0.");
   });
 
-  it('Clicks "3"', () => {
+  it("Test the digits", () => {
+    cy.get("#calc-btn-1").click();
+    cy.get("#calc-display").should("have.value", "1.");
+    cy.get("#calc-btn-2").click();
+    cy.get("#calc-display").should("have.value", "12.");
     cy.get("#calc-btn-3").click();
-    cy.get("#calc-display").should("have.value", "3.");
+    cy.get("#calc-display").should("have.value", "123.");
+    cy.get("#calc-btn-4").click();
+    cy.get("#calc-display").should("have.value", "1234.");
+    cy.get("#calc-btn-5").click();
+    cy.get("#calc-display").should("have.value", "12345.");
+    cy.get("#calc-btn-decimal").click();
+    cy.get("#calc-display").should("have.value", "12345.");
+    cy.get("#calc-btn-0").click();
+    cy.get("#calc-display").should("have.value", "12345.0");
+    cy.get("#calc-btn-9").click();
+    cy.get("#calc-display").should("have.value", "12345.09");
+    cy.get("#calc-btn-8").click();
+    cy.get("#calc-display").should("have.value", "12345.098");
+    cy.get("#calc-btn-7").click();
+    cy.get("#calc-display").should("have.value", "12345.0987");
+    cy.get("#calc-btn-6").click();
+    cy.get("#calc-display").should("have.value", "12345.09876");
+    cy.get("#calc-btn-negate").click();
+    cy.get("#calc-display").should("have.value", "-12345.09876");
   });
 
   it('Adds "2" to "6"', () => {
