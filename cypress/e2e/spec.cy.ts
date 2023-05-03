@@ -6,7 +6,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-btn-clear").click();
   });
 
-  it("Loads the App", () => {
+  it("Loaded the App?", () => {
     cy.get("#calc-display").should("have.value", "0.");
   });
 
@@ -37,7 +37,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "-12345.09876");
   });
 
-  it('Adds "2" to "6"', () => {
+  it('Add "2" to "6"', () => {
     cy.get("#calc-btn-6").click();
     cy.get("#calc-display").should("have.value", "6.");
     cy.get("#calc-btn-add").click();
@@ -48,7 +48,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "8.");
   });
 
-  it('Subtracts "2" from "6"', () => {
+  it('Subtract "2" from "6"', () => {
     cy.get("#calc-btn-6").click();
     cy.get("#calc-display").should("have.value", "6.");
     cy.get("#calc-btn-subtract").click();
@@ -59,7 +59,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "4.");
   });
 
-  it('Multiplies "6" by "2"', () => {
+  it('Multiply "6" by "2"', () => {
     cy.get("#calc-btn-6").click();
     cy.get("#calc-display").should("have.value", "6.");
     cy.get("#calc-btn-multiply").click();
@@ -70,7 +70,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "12.");
   });
 
-  it('Divides "6" by "2"', () => {
+  it('Divide "6" by "2"', () => {
     cy.get("#calc-btn-6").click();
     cy.get("#calc-display").should("have.value", "6.");
     cy.get("#calc-btn-divide").click();
@@ -81,7 +81,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "3.");
   });
 
-  it('Divides "6" by "0"', () => {
+  it('Divide "6" by "0"', () => {
     cy.get("#calc-btn-6").click();
     cy.get("#calc-display").should("have.value", "6.");
     cy.get("#calc-btn-divide").click();
@@ -92,7 +92,7 @@ describe("Calc-Vue-Lator Test Suite", () => {
     cy.get("#calc-display").should("have.value", "Error.");
   });
 
-  it('Calculates "2^5"', () => {
+  it('Calculate "2^5"', () => {
     cy.get("#calc-btn-2").click();
     cy.get("#calc-btn-multiply").click();
     cy.get("#calc-btn-2").click();

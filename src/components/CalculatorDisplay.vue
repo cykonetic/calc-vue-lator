@@ -9,6 +9,7 @@ const props = defineProps({
     <input
       type="text"
       id="calc-display"
+      title="display"
       disabled
       :value="props.value"
       class="w-full text-right text-black px-1"

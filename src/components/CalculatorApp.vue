@@ -303,6 +303,7 @@ function enterOper(key: string): void {
         :key="button.id"
         :id="button.id"
         :value="button.symbol"
+        :title="getFriendly(button.symbol)"
         :class="button.class"
         @pressed="button.onPressed"
       ></CalculatorButton>
