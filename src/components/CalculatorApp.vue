@@ -192,21 +192,6 @@ function getFriendly(symbol: string): string {
   return symbol;
 }
 
-function clear(): void {
-  state.register = 0;
-  state.operator = null;
-  state.display = displayDefault;
-  state.waiting = true;
-  state.executed = true;
-  state.error = false;
-}
-
-function clearError(): void {
-  if (!state.error) return;
-  state.display = displayDefault;
-  state.error = false;
-}
-
 function calculate(
   operator: string,
   leftOpperand: number,
@@ -229,6 +214,21 @@ function calculate(
   state.error = Number.isNaN(result) || Infinity === result;
 
   return state.error ? displayError : parseFloat(result.toFixed(10)).toString();
+}
+
+function clear(): void {
+  state.register = 0;
+  state.operator = null;
+  state.display = displayDefault;
+  state.waiting = true;
+  state.executed = true;
+  state.error = false;
+}
+
+function clearError(): void {
+  if (!state.error) return;
+  state.display = displayDefault;
+  state.error = false;
 }
 
 function negate(): void {
