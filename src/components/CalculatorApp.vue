@@ -5,8 +5,8 @@ import CalculatorDisplay from "./CalculatorDisplay.vue";
 
 const buttonClassClear = "bg-yellow-600 text-slate-900 col-span-2";
 const buttonClassDigit = "bg-slate-500 text-zinc-200";
-const buttonClassOper = "bg-orange-600 text-zinc-200";
 const buttonClassEquals = "bg-slate-400 text-slate-900 col-span-2";
+const buttonClassOper = "bg-orange-600 text-zinc-200";
 
 const digitOne = "1";
 const digitTwo = "2";
@@ -34,7 +34,7 @@ const displayDefault = digitZero;
 
 interface Calculator {
   register: number; // value of left-side (stored)
-  operator: string | null; // operation
+  operator: string | null; // readied operation
   display: string; // value of right-side
   waiting: boolean; // user input expected (defaults will complete operations)
   executed: boolean; // last operation complete
