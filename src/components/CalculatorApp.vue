@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import CalculatorButton from "./CalculatorButton.vue";
 import CalculatorDisplay from "./CalculatorDisplay.vue";
 
@@ -176,6 +176,10 @@ const buttons: Button[] = [
   },
 ];
 
+const display = computed((): string => {
+  return state.display + (/\./.test(state.display) ? "" : ".");
+});
+
 function getId(symbol: string): string {
   return "calc-btn-" + getFriendly(symbol);
 }
@@ -291,22 +295,22 @@ function enterOper(key: string): void {
 </script>
 
 <template>
-  <div class="rounded-md w-fit bg-blue-900 p-3">
-    <div>
-      <CalculatorDisplay
-        :value="state.display + (/\./.test(state.display) ? '' : '.')"
-      ></CalculatorDisplay>
+  <main>
+    <div class="rounded-md w-fit bg-blue-900 p-3">
+      <div>
+        <CalculatorDisplay :value="display"></CalculatorDisplay>
+      </div>
+      <div class="grid grid-cols-4 gap-1.5 font-bold">
+        <CalculatorButton
+          v-for="button in buttons"
+          :key="button.id"
+          :id="button.id"
+          :value="button.symbol"
+          :title="getFriendly(button.symbol)"
+          :class="button.class"
+          @pressed="button.onPressed"
+        ></CalculatorButton>
+      </div>
     </div>
-    <div class="grid grid-cols-4 gap-1.5 font-bold">
-      <CalculatorButton
-        v-for="button in buttons"
-        :key="button.id"
-        :id="button.id"
-        :value="button.symbol"
-        :title="getFriendly(button.symbol)"
-        :class="button.class"
-        @pressed="button.onPressed"
-      ></CalculatorButton>
-    </div>
-  </div>
+  </main>
 </template>
