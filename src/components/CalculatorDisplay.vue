@@ -5,15 +5,12 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="w-fit pb-2">
-    <input
-      type="text"
-      id="calc-display"
-      title="display"
-      disabled
-      :value="props.value"
-      class="w-full text-right text-black px-1"
-      style="border: 2px inset indigo"
-    />
-  </div>
+  <input
+    type="text"
+    id="calc-display"
+    title="display"
+    disabled
+    :value="props.value"
+    class="w-full text-right text-black bg-gray-400 disabled:bg-gray-400 px-1"
+  />
 </template>

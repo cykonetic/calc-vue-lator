@@ -3,10 +3,10 @@ import { reactive, computed } from "vue";
 import CalculatorButton from "./CalculatorButton.vue";
 import CalculatorDisplay from "./CalculatorDisplay.vue";
 
-const buttonClassClear = "bg-yellow-600 text-slate-900 col-span-2";
-const buttonClassDigit = "bg-slate-500 text-zinc-200";
-const buttonClassEquals = "bg-slate-400 text-slate-900 col-span-2";
-const buttonClassOper = "bg-orange-600 text-zinc-200";
+const buttonClassClear = "bg-orange-400 text-slate-900 col-span-2";
+const buttonClassDigit = "bg-slate-800 text-slate-200";
+const buttonClassEquals = "bg-slate-300 text-slate-900 col-span-2";
+const buttonClassOper = "bg-orange-700 text-slate-200";
 
 const digitOne = "1";
 const digitTwo = "2";
@@ -296,9 +296,12 @@ function enterOper(key: string): void {
 
 <template>
   <main>
-    <div class="rounded-md w-fit bg-blue-900 p-3">
-      <div>
-        <CalculatorDisplay :value="display"></CalculatorDisplay>
+    <div class="rounded-md w-fit bg-indigo-800 p-3">
+      <div class="w-fit pb-2">
+        <CalculatorDisplay
+          :value="display"
+          class="border-solid border-2 border-indigo-700"
+        ></CalculatorDisplay>
       </div>
       <div class="grid grid-cols-4 gap-1.5 font-bold">
         <CalculatorButton
@@ -307,7 +310,7 @@ function enterOper(key: string): void {
           :id="button.id"
           :value="button.symbol"
           :title="getFriendly(button.symbol)"
-          :class="button.class"
+          :class="button.class + ' border-solid border-2 border-indigo-900'"
           @pressed="button.onPressed"
         ></CalculatorButton>
       </div>
