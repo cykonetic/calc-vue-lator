@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { reactive, computed, onMounted } from "vue";
 import CalculatorButton from "./CalculatorButton.vue";
 import CalculatorDisplay from "./CalculatorDisplay.vue";
 
-const buttonClassClear = "bg-yellow-600 text-slate-900 col-span-2";
-const buttonClassDigit = "bg-slate-500 text-zinc-200";
-const buttonClassEquals = "bg-slate-400 text-slate-900 col-span-2";
-const buttonClassOper = "bg-orange-600 text-zinc-200";
+onMounted(() => {
+  document.body.addEventListener("keyup", doKeyup);
+});
+
+const buttonClassClear = "bg-orange-400 text-slate-900 col-span-2";
+const buttonClassDigit = "bg-slate-800 text-slate-200";
+const buttonClassEquals = "bg-slate-300 text-slate-900 col-span-2";
+const buttonClassOper = "bg-orange-700 text-slate-200";
 
 const digitOne = "1";
 const digitTwo = "2";
@@ -180,6 +184,42 @@ const display = computed((): string => {
   return state.display + (/\./.test(state.display) ? "" : ".");
 });
 
+function doKeyup(event: KeyboardEvent): void {
+  switch (event.key) {
+    case operClear:
+      return clear();
+    case operNegate:
+      return negate();
+    case digitDecimal:
+      return enterDecimal();
+    case operAdd:
+    case operDivide:
+    case operSubtract:
+    case operMultiply:
+      return enterOper(event.key);
+    case digitZero:
+    case digitOne:
+    case digitTwo:
+    case digitThree:
+    case digitFour:
+    case digitFive:
+    case digitSix:
+    case digitSeven:
+    case digitEight:
+    case digitNine:
+      return enterDigit(event.key);
+    case "*":
+      return enterOper(operMultiply);
+    case "/":
+      return enterOper(operDivide);
+    case "Enter":
+      return enterOper(operEqual);
+    case "Backspace":
+    case "Delete":
+      return clear();
+  }
+}
+
 function getId(symbol: string): string {
   return "calc-btn-" + getFriendly(symbol);
 }
@@ -295,22 +335,25 @@ function enterOper(key: string): void {
 </script>
 
 <template>
-  <main>
-    <div class="rounded-md w-fit bg-blue-900 p-3">
-      <div>
-        <CalculatorDisplay :value="display"></CalculatorDisplay>
-      </div>
-      <div class="grid grid-cols-4 gap-1.5 font-bold">
-        <CalculatorButton
-          v-for="button in buttons"
-          :key="button.id"
-          :id="button.id"
-          :value="button.symbol"
-          :title="getFriendly(button.symbol)"
-          :class="button.class"
-          @pressed="button.onPressed"
-        ></CalculatorButton>
-      </div>
+  <main class="rounded-md w-fit bg-indigo-800 p-3">
+    <div class="w-fit pb-2">
+      <CalculatorDisplay
+        :value="display"
+        class="border-2 border-indigo-700"
+        style="border-style: inset"
+      ></CalculatorDisplay>
+    </div>
+    <div class="grid grid-cols-4 gap-1.5 font-bold">
+      <CalculatorButton
+        v-for="button in buttons"
+        :key="button.id"
+        :id="button.id"
+        :value="button.symbol"
+        :title="getFriendly(button.symbol)"
+        :class="button.class + ' border-solid border-2 border-indigo-900'"
+        style="border-style: outset"
+        @pressed="button.onPressed"
+      ></CalculatorButton>
     </div>
   </main>
 </template>
