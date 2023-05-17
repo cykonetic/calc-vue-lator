@@ -10,10 +10,19 @@ export default defineConfig({
     vue(),
     VitePWA({
       manifest: {
+        name: "calc-vue-lator",
+        background_color: "black",
+        theme_color: "indigo",
         icons: [
           {
             src: "assets/icons/cvl.png",
             sizes: "300x300",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+          {
+            src: "assets/icons/splash.png",
+            sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
           },
