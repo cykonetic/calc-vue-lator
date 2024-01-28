@@ -23,7 +23,7 @@
     "@vue/test-utils": "^2.0.2",
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.8",
-    "cypress": "^12.10.0",
+    "cypress": "^13.6.3",
     "eslint": "^8.5.0",
     "eslint-plugin-cypress": "^2.13.2",
     "eslint-plugin-vue": "^9.0.0",
