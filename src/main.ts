@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import CalculatorApp from "./components/CalculatorApp.vue";
 
 import "./assets/main.css";
 
-createApp(App).mount("#app");
+createApp(CalculatorApp).mount("#app");
