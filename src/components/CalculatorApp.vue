@@ -11,6 +11,7 @@ const buttonClassClear = "bg-orange-400 text-slate-900 col-span-2";
 const buttonClassDigit = "bg-slate-800 text-slate-200";
 const buttonClassEquals = "bg-slate-300 text-slate-900 col-span-2";
 const buttonClassOper = "bg-orange-700 text-slate-200";
+const buttonClassHover= "hover:border-white";
 
 const digitOne = "1";
 const digitTwo = "2";
