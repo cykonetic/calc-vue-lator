@@ -11,7 +11,7 @@ const buttonClassClear = "bg-orange-400 text-slate-900 col-span-2";
 const buttonClassDigit = "bg-slate-800 text-slate-200";
 const buttonClassEquals = "bg-slate-300 text-slate-900 col-span-2";
 const buttonClassOper = "bg-orange-700 text-slate-200";
-const buttonClassHover= "hover:border-white";
+const buttonClassHover = "hover:border-white";
 
 const digitOne = "1";
 const digitTwo = "2";
@@ -71,113 +71,113 @@ const buttons: Button[] = [
     symbol: operClear,
     id: getId(operClear),
     onPressed: clear,
-    class: buttonClassClear + ' ' + buttonClassHover,
+    class: buttonClassClear + " " + buttonClassHover,
   },
   {
     symbol: operEqual,
     id: getId(operEqual),
     onPressed: equals,
-    class: buttonClassEquals + ' ' + buttonClassHover,
+    class: buttonClassEquals + " " + buttonClassHover,
   },
 
   {
     symbol: digitSeven,
     id: getId(digitSeven),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitEight,
     id: getId(digitEight),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitNine,
     id: getId(digitNine),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: operDivide,
     id: getId(operDivide),
     onPressed: enterOper,
-    class: buttonClassOper + ' ' + buttonClassHover,
+    class: buttonClassOper + " " + buttonClassHover,
   },
 
   {
     symbol: digitFour,
     id: getId(digitFour),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitFive,
     id: getId(digitFive),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitSix,
     id: getId(digitSix),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: operMultiply,
     id: getId(operMultiply),
     onPressed: enterOper,
-    class: buttonClassOper + ' ' + buttonClassHover,
+    class: buttonClassOper + " " + buttonClassHover,
   },
 
   {
     symbol: digitOne,
     id: getId(digitOne),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitTwo,
     id: getId(digitTwo),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitThree,
     id: getId(digitThree),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: operSubtract,
     id: getId(operSubtract),
     onPressed: enterOper,
-    class: buttonClassOper + ' ' + buttonClassHover,
+    class: buttonClassOper + " " + buttonClassHover,
   },
 
   {
     symbol: operNegate,
     id: getId(operNegate),
     onPressed: negate,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitZero,
     id: getId(digitZero),
     onPressed: enterDigit,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: digitDecimal,
     id: getId(digitDecimal),
     onPressed: enterDecimal,
-    class: buttonClassDigit + ' ' + buttonClassHover,
+    class: buttonClassDigit + " " + buttonClassHover,
   },
   {
     symbol: operAdd,
     id: getId(operAdd),
     onPressed: enterOper,
-    class: buttonClassOper + ' ' + buttonClassHover,
+    class: buttonClassOper + " " + buttonClassHover,
   },
 ];
 
@@ -240,7 +240,7 @@ function getFriendly(symbol: string): string {
 function calculate(
   operator: string,
   leftOpperand: number,
-  rightOpperand: number
+  rightOpperand: number,
 ): string {
   let result: number;
   switch (operator) {
@@ -292,7 +292,7 @@ function equals(): void {
   state.display = calculate(
     state.operator ?? operDefault,
     input,
-    state.register
+    state.register,
   );
   state.executed = state.waiting = true;
 }
@@ -325,7 +325,7 @@ function enterOper(key: string): void {
     state.display = calculate(
       state.operator ?? operDefault,
       state.register,
-      parseFloat(state.display)
+      parseFloat(state.display),
     );
   }
   state.register = parseFloat(state.display);
