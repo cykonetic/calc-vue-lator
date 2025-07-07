@@ -9,7 +9,7 @@
     "test:unit": "vitest --environment jsdom",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint src --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint src --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "*",
+    "@tailwindcss/postcss": "^4.1.10",
     "@types/jsdom": "*",
     "@types/node": "*",
     "@vitejs/plugin-vue": "*",
@@ -24,7 +25,7 @@
     "@vue/eslint-config-typescript": "*",
     "@vue/test-utils": "*",
     "@vue/tsconfig": "*",
-    "autoprefixer": "*",
+    "autoprefixer": "^10.4.21",
     "cypress": "*",
     "eslint": "*",
     "eslint-plugin-cypress": "*",
@@ -33,7 +34,7 @@
     "npm-run-all": "*",
     "postcss": "*",
     "prettier": "*",
-    "tailwindcss": "*",
+    "tailwindcss": "^4.1.11",
     "typescript": "*",
     "vite": "*",
     "vite-plugin-pwa": "*",
