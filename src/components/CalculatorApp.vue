@@ -9,7 +9,7 @@ onMounted(() => {
 
 const buttonClassClear = "bg-orange-400 text-slate-900 font-bold col-span-2";
 const buttonClassDigit = "bg-slate-800 text-slate-200";
-const buttonClassEquals = "bg-slate-400 text-black font-black col-span-2";
+const buttonClassEquals = "bg-slate-200 text-black font-black col-span-2";
 const buttonClassOper = "bg-orange-600 text-slate-200";
 const buttonClassHover = "hover:border-white";
 
